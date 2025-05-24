@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        body {
+            background: linear-gradient(120deg, #2980b9 50%, #2ecc71 60%, #8e44ad 80%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            flex-direction: column;
+        }
+
+        .container {
+            width: 400px;
+            background: #fff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 12px;
+            display: none;
+        }
+
+        .success {
+            color: green;
+            font-weight: bold;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #007BFF;
+            color: #FFC371;
+            border: none;
+            cursor: pointer;
+        }
+
+        nav {
+            background-color: #333;
+            padding: 10px 0;
+            color: #fff;
+            text-align: center;
+            width: 100%;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .registration-link {
+            color: #ffc371;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<nav>
+    <ul><li><a href="index.html">Home</a></li>
+        <li><a href="#" class="registration-link">Registration</a></li>
+    </ul>
+</nav>
+
+<!-- Registration Form -->
+<form action="" method="post" class="container" id="registration-form">
+    <h1>REGISTRATION FORM</h1>
+
+        
+    <label for="full-name">Full Name:</label>
+    <input type="text" id="full-name" name="full-name" required>
+    <div class="error-message" id="name-error">Only letters and spaces allowed.</div>
+
+    <label for="registration-number">Registration Number:</label>
+    <input type="text" id="registration-number" name="registration-number" required>
+    <div class="error-message" id="reg-error">Format: BCS-00-0000-0000.</div>
+
+    <label for="sex">Sex:</label>
+    <select id="sex" name="sex">
+        <option value="m">Male</option>
+        <option value="f">Female</option>
+    </select>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+    <div class="error-message" id="email-error">Invalid email format.</div>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+    <div class="error-message" id="password-error">Password must be 8+ characters, include uppercase, lowercase, number, and special character.</div>
+
+    <label for="confirmpassword">Confirm Password:</label>
+    <input type="password" id="confirmpassword" name="confirmpassword" required>
+    <div class="error-message" id="confirm-error">Passwords do not match.</div>
+
+    <label for="region">Region:</label>
+    <select id="region" name="region"></select>
+
+    <label for="district">District:</label>
+    <select id="district" name="district"></select>
+
+    <button type="submit">Submit</button>
+</form>
+
+<script>
+    $(document).ready(function () {
+        var regionDistricts = {
+            "Select Region": ["Arusha", "Dar es Salaam", "Kilimanjaro", "Morogoro"],
+            "Arusha": ["Arusha District", "Karatu District", "Arumeru District"],
+            "Dar es Salaam": ["Temeke", "Kinondoni", "Ilala"],
+            "Kilimanjaro": ["Moshi District", "Hai District"],
+            "Morogoro": ["Morogoro District", "Mvomero District"]
+        };
+
+        $("#region").change(function () {
+            var region = $(this).val();
+            var districts = regionDistricts[region] || [];
+            $("#district").empty();
+            $.each(districts, function (index, district) {
+                $("#district").append('<option value="' + district + '">' + district + '</option>');
+            });
+        });
+
+        // Populate the region dropdown with the available regions
+        $.each(regionDistricts, function (region) {
+            $("#region").append('<option value="' + region + '">' + region + '</option>');
+        });
+    });
+</script>
+
+</body>
+</html>
